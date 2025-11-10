@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>商品详情</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+    <a href="index.html">← 返回首页</a>
+    <h1>商品名称1</h1>
+</header>
+
+<main class="product-detail">
+    <div class="product-info">
+        <img src="example1.jpg" alt="商品图">
+        <div class="info">
+            <p>价格：100 元</p>
+            <p>分类：电子产品</p>
+            <p>新旧程度：二手</p>
+            <button onclick="document.getElementById('chat').scrollIntoView()">与商家聊天</button>
+        </div>
+    </div>
+
+    <section id="comments">
+        <h2>用户评论</h2>
+        <div class="review">
+            <p><strong>用户A</strong>：商品很好！</p>
+        </div>
+        <div class="review">
+            <p><strong>用户B</strong>：还行，性价比高。</p>
+        </div>
+        <textarea placeholder="写评论..."></textarea>
+        <button>提交评论</button>
+    </section>
+
+    <section id="chat">
+        <h2>聊天咨询</h2>
+        <div class="chat-box">
+            <div class="message received">您好，这个商品还有吗？</div>
+            <div class="message sent">有的，还在哦~</div>
+            <input type="text" placeholder="输入消息...">
+            <button>发送</button>
+        </div>
+    </section>
+</main>
+</body>
+</html>

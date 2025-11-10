@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>二手物品交易平台</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<!-- 导航栏 -->
+<header>
+    <div class="nav-left">
+        <h1>二手交易</h1>
+    </div>
+    <div class="nav-center">
+        <input type="text" placeholder="搜索商品..." name="keyword">
+
+        <!-- 价格区间 -->
+        <input type="number" name="min_price" placeholder="最低价">
+        -
+        <input type="number" name="max_price" placeholder="最高价">
+
+        <!-- 新旧程度 -->
+        <select name="condition">
+            <option value="">新旧不限</option>
+            <option value="new">全新</option>
+            <option value="like_new">几乎全新</option>
+            <option value="used">二手</option>
+        </select>
+
+        <button>搜索</button>
+    </div>
+    <div class="nav-right">
+        <a href="#">首页</a>
+        <a href="#">交易记录</a>
+        <a href="#">个人中心</a>
+    </div>
+</header>
+
+
+<!-- 商品瀑布流 -->
+<main class="product-grid">
+    <div class="product-card" onclick="location.href='product.html'">
+        <img src="example1.jpg" alt="商品1">
+        <h3>商品名称1</h3>
+        <p>价格：100 元</p>
+    </div>
+    <div class="product-card" onclick="location.href='product.html'">
+        <img src="example2.jpg" alt="商品2">
+        <h3>商品名称2</h3>
+        <p>价格：200 元</p>
+    </div>
+    <div class="product-card" onclick="location.href='product.html'">
+        <img src="example3.jpg" alt="商品3">
+        <h3>商品名称3</h3>
+        <p>价格：150 元</p>
+    </div>
+    <!-- 可以继续添加商品 -->
+</main>
+</body>
+</html>
