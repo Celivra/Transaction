@@ -14,6 +14,7 @@ public interface ProductMapper {
             "values(#{name}, #{price}, #{image}, #{description}, #{category}, #{condition}, #{status})")
     Boolean addProduct(Product product);
 
+
     @Update("update product set name=#{name}, price=#{price}, image=#{image}, description=#{description}, " +
             "category=#{category}, condition=#{condition}, status=#{status} where id=#{id}")
     Boolean updateProduct(Product product);
