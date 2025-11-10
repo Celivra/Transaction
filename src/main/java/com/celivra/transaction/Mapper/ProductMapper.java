@@ -1,0 +1,29 @@
+package com.celivra.transaction.Mapper;
+
+import com.celivra.transaction.Pojo.Product;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+import java.util.List;
+
+@Mapper
+public interface ProductMapper {
+    @Insert("insert into product(name, price, image, description, category, condition, status) " +
+            "values(#{name}, #{price}, #{image}, #{description}, #{category}, #{condition}, #{status})")
+    Boolean addProduct(Product product);
+
+    @Update("update product set name=#{name}, price=#{price}, image=#{image}, description=#{description}, " +
+            "category=#{category}, condition=#{condition}, status=#{status} where id=#{id}")
+    Boolean updateProduct(Product product);
+
+    @Select("select * from product where id=#{id}")
+    Product getProductById(Integer id);
+
+    @Select("select * from product where user_id = #{id} order by id desc")
+    List<Product> getProductsByUserId(Integer id);
+
+    @Select("select * from product order by id desc")
+    List<Product> getAllProducts();
+}

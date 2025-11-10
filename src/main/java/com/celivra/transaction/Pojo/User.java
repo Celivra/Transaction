@@ -1,10 +1,10 @@
-package com.celivra.transction.Pojo;
+package com.celivra.transaction.Pojo;
 
 import lombok.Data;
 
 @Data
 public class User {
-    Integer Id;
+    Integer id;
     String username;
     String password;
     String phone;
@@ -19,7 +19,7 @@ public class User {
     }
 
     public User(Integer id, String username, String password, String phone, String email) {
-        this.Id = id;
+        this.id = id;
         this.username = username;
         this.password = password;
         this.phone = phone;
