@@ -1,0 +1,13 @@
+package com.celivra.transction;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class TransctionApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(TransctionApplication.class, args);
+    }
+
+}
