@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Page</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/account.css}">
+</head>
+<body>
+<div class="container">
+
+    <!-- 用户信息 -->
+    <div class="user-info">
+        <h2>用户信息</h2>
+        <p><strong>用户名：</strong><span th:text="${user.username}"></span></p>
+        <p><strong>邮箱：</strong><span th:text="${user.email}"></span></p>
+        <p><strong>电话：</strong><span th:text="${user.phone}"></span></p>
+        <a class="btn" th:href="@{/TransRecords}">查看交易记录</a>
+    </div>
+
+    <!-- 我发布的商品 -->
+    <div class="product-list">
+        <h2>我发布的商品</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>商品ID</th>
+                <th>商品名称</th>
+                <th>价格</th>
+                <th>描述</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${product_list}">
+                <td th:text="${product.id}"></td>
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.description}"></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(product_list)}">
+                <td colspan="4">暂无商品</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

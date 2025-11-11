@@ -1,48 +1,54 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>商品详情</title>
+    <title th:text="${product.name} + ' - 商品详情'">商品详情</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/product.css}">
 </head>
 <body>
-<header>
-    <a href="index.html">← 返回首页</a>
-    <h1>商品名称1</h1>
-</header>
+<div class="container">
 
-<main class="productMapper-detail">
-    <div class="productMapper-info">
-        <img src="example1.jpg" alt="商品图">
-        <div class="info">
-            <p>价格：100 元</p>
-            <p>分类：电子产品</p>
-            <p>新旧程度：二手</p>
-            <button onclick="document.getElementById('chat').scrollIntoView()">与商家聊天</button>
+    <!-- 商品图片 -->
+    <div class="product-detail">
+
+        <h2 th:text="${product.name}">商品名称</h2>
+        <p><strong>价格：</strong><span th:text="${product.price}"></span> 元</p>
+        <img th:src="@{${product.image}}" alt="Product Image" class="product-image"/>
+        <p><strong>分类：</strong><span th:text="${product.category}"></span></p>
+        <p><strong>成色/状态：</strong><span th:text="${product.condition}"></span></p>
+        <p><strong>状态：</strong><span th:text="${product.status}"></span></p>
+        <p><strong>描述：</strong></p>
+        <p th:text="${product.description}"></p>
+
+        <!-- 卖家信息 -->
+        <div class="seller-section">
+            <span><strong>卖家：</strong><span th:text="${seller.username}"></span></span>
+            <a th:href="'mailto:' + ${seller.email}" class="btn">联系卖家</a>
         </div>
     </div>
 
-    <section id="comments">
-        <h2>用户评论</h2>
-        <div class="review">
-            <p><strong>用户A</strong>：商品很好！</p>
-        </div>
-        <div class="review">
-            <p><strong>用户B</strong>：还行，性价比高。</p>
-        </div>
-        <textarea placeholder="写评论..."></textarea>
-        <button>提交评论</button>
-    </section>
+    <!-- 评价提交 -->
+    <div class="review-section">
+        <h3>提交评价</h3>
+        <form th:action="@{/submitReview}" method="post">
+            <input type="hidden" name="productId" th:value="${product.id}" />
+            <textarea name="content" placeholder="写下你的评价..."></textarea>
+            <br/>
+            <button type="submit" class="btn">提交评价</button>
+        </form>
+    </div>
 
-    <section id="chat">
-        <h2>聊天咨询</h2>
-        <div class="chat-box">
-            <div class="message received">您好，这个商品还有吗？</div>
-            <div class="message sent">有的，还在哦~</div>
-            <input type="text" placeholder="输入消息...">
-            <button>发送</button>
+    <!-- 已有评价 -->
+    <div class="reviews-list">
+        <h3>已有评价</h3>
+        <div th:if="${#lists.isEmpty(evaluates)}">暂无评价</div>
+        <div th:each="eval : ${evaluates}" class="review-item">
+            <p th:text="${eval.username}" style="font-weight: bold">用户</p>
+            <p th:text="${eval.content}">评价内容</p>
         </div>
-    </section>
-</main>
+    </div>
+
+</div>
 </body>
 </html>

@@ -10,13 +10,13 @@ import java.util.List;
 
 @Mapper
 public interface ProductMapper {
-    @Insert("insert into product(name, price, image, description, category, condition, status) " +
-            "values(#{name}, #{price}, #{image}, #{description}, #{category}, #{condition}, #{status})")
+    @Insert("insert into product(name, price, image, description, category, condition, status, user_id) " +
+            "values(#{name}, #{price}, #{image}, #{description}, #{category}, #{condition}, #{status}, #{userId})")
     Boolean addProduct(Product product);
 
 
     @Update("update product set name=#{name}, price=#{price}, image=#{image}, description=#{description}, " +
-            "category=#{category}, condition=#{condition}, status=#{status} where id=#{id}")
+            "category=#{category}, condition=#{condition}, status=#{status}, user_id=#{userId} where id=#{id}")
     Boolean updateProduct(Product product);
 
     @Select("select * from product where id=#{id}")

@@ -16,18 +16,34 @@ public class UserController {
 
     @PostMapping("/doLogin")
     public String doLogin(@RequestParam String username, @RequestParam String password,
-                          RedirectAttributes fModel, HttpSession httpSession, HttpSession session){
+                          RedirectAttributes fModel, HttpSession session){
         User InputUser = userService.getUserByUsername(username);
         if(InputUser == null){
-            fModel.addFlashAttribute("loginError", "Username Is Not Exist");
-            return "Login";
+            fModel.addFlashAttribute("login_error", "Username Is Not Exist");
+            return "redirect:/Login";
         }
         if(InputUser.getPassword().equals(password)){
             session.setAttribute("user", InputUser);
-            return  "/";
+            return "redirect:/";
         }
-        fModel.addFlashAttribute("loginError", "Username Is Not Exist");
-        return "Login";
+        fModel.addFlashAttribute("login_error", "Password Is Not Equal");
+        return "redirect:/Login";
+    }
+
+    @PostMapping("/doReg")
+    public String doRegister(@RequestParam String username, @RequestParam String password, @RequestParam String phone, @RequestParam String email,
+                             RedirectAttributes fModel){
+        User InputUser = new User(username, password, phone, email);
+        int statusCode = userService.addUser(InputUser);
+        if(statusCode == 1){
+            fModel.addFlashAttribute("register_success", "Registration Successful");
+        }else if(statusCode == 0){
+            fModel.addFlashAttribute("register_error", "Service Error");
+        }else if(statusCode == -1){
+            fModel.addFlashAttribute("register_error", "Username Is Already Exist");
+        }
+        return "redirect:/Register";
+
     }
 
 }

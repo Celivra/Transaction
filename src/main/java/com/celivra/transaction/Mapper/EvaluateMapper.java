@@ -9,8 +9,8 @@ import java.util.List;
 
 @Mapper
 public interface EvaluateMapper {
-    @Insert("insert into evaluate(user_id, product_id, content) " +
-            "values(#{userId}, #{productId}, #{content})")
+    @Insert("insert into evaluate(user_id, product_id, username, content) " +
+            "values(#{userId}, #{productId}, #{username}, #{content})")
     Boolean addEvaluate(Evaluate e);
 
     @Select("select * from evaluate where product_id=#{productId} order by id desc")

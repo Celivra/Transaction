@@ -1,60 +1,54 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <title>二手物品交易平台</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<!-- 导航栏 -->
 <header>
     <div class="nav-left">
         <h1>二手交易</h1>
     </div>
+
     <div class="nav-center">
-        <input type="text" placeholder="搜索商品..." name="keyword">
+        <form th:action="@{/search}" method="get" class="search-form">
+            <input type="text" name="keyword" placeholder="搜索商品...">
+            <input type="number" name="min_price" placeholder="最低价">
+            -
+            <input type="number" name="max_price" placeholder="最高价">
 
-        <!-- 价格区间 -->
-        <input type="number" name="min_price" placeholder="最低价">
-        -
-        <input type="number" name="max_price" placeholder="最高价">
-
-        <!-- 新旧程度 -->
-        <select name="condition">
-            <option value="">新旧不限</option>
-            <option value="new">全新</option>
-            <option value="like_new">几乎全新</option>
-            <option value="used">二手</option>
-        </select>
-
-        <button>搜索</button>
+            <select name="condition">
+                <option value="">新旧不限</option>
+                <option value="new">全新</option>
+                <option value="like_new">几乎全新</option>
+                <option value="used">二手</option>
+            </select>
+            <button type="submit">搜索</button>
+        </form>
     </div>
+
     <div class="nav-right">
-        <a href="#">首页</a>
-        <a href="#">交易记录</a>
-        <a href="#">个人中心</a>
+        <a th:href="@{/}">首页</a>
+        <a th:href="@{/TransRecord}">交易记录</a>
+        <a th:if="${logged}" th:text="${user.username}" th:href="@{/Account}">个人中心</a>
+        <a th:unless="${logged}" th:href="@{/login}">登录</a>
     </div>
 </header>
 
-
-<!-- 商品瀑布流 -->
-<main class="productMapper-grid">
-    <div class="productMapper-card" onclick="location.href='productMapper.html'">
-        <img src="example1.jpg" alt="商品1">
-        <h3>商品名称1</h3>
-        <p>价格：100 元</p>
+<main class="product-grid">
+    <!-- 商品卡片循环 -->
+    <div class="product-card"
+         th:each="product : ${all_product}"
+         th:onclick="|location.href='/product/${product.id}'|">
+    <img th:src="@{${product.image}}" alt="商品图片">
+    <h3 th:text="${product.name}">商品名称</h3>
+    <p th:text="'￥' + ${product.price}">价格</p>
     </div>
-    <div class="productMapper-card" onclick="location.href='productMapper.html'">
-        <img src="example2.jpg" alt="商品2">
-        <h3>商品名称2</h3>
-        <p>价格：200 元</p>
-    </div>
-    <div class="productMapper-card" onclick="location.href='productMapper.html'">
-        <img src="example3.jpg" alt="商品3">
-        <h3>商品名称3</h3>
-        <p>价格：150 元</p>
-    </div>
-    <!-- 可以继续添加商品 -->
 </main>
+
+<footer>
+    <p>© 2025 二手物品交易平台</p>
+</footer>
 </body>
 </html>

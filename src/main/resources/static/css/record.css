@@ -1,0 +1,29 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f5f5f5;
+}
+.container {
+    max-width: 800px;
+    margin: auto;
+}
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.record-list {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+.record-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+.record-item:last-child {
+    border-bottom: none;
+}
+.record-item p {
+    margin: 5px 0;
+}

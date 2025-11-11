@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>交易记录</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/record.css}">
+</head>
+<body>
+<div class="container">
+    <h2 th:text="${user.username} + ' 的交易记录'">交易记录</h2>
+
+    <div class="record-list">
+        <div th:if="${#lists.isEmpty(records)}">暂无交易记录</div>
+
+        <div th:each="rec : ${records}" class="record-item">
+            <p><strong>交易编号：</strong><span th:text="${rec.record.id}"></span></p>
+            <p><strong>商品名称：</strong><span th:text="${rec.productName}"></span></p>
+            <p><strong>购买时间：</strong><span th:text="${#temporals.format(rec.record.purchaseTime,'yyyy-MM-dd HH:mm')}"></span></p>
+            <p><strong>状态：</strong><span th:text="${rec.record.status}"></span></p>
+            <p><strong>描述：</strong><span th:text="${rec.record.description}"></span></p>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

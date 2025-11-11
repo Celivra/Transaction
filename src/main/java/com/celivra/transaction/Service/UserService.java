@@ -10,8 +10,17 @@ public class UserService {
     @Autowired
     UserMapper userMapper;
 
-    public Boolean addUser(User user) {
-        return userMapper.addUser(user);
+    public Integer addUser(User user) {
+        User checkUser = userMapper.getUserByUsername(user.getUsername());
+        if (checkUser != null) {
+            return -1;
+        }
+
+        if(userMapper.addUser(user)){
+            return 1;
+        }else{
+            return 0;
+        }
     }
 
     public User getUserByUsername(String username) {
