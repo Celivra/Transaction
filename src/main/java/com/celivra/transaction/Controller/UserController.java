@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,10 +32,9 @@ public class UserController {
     }
 
     @PostMapping("/doReg")
-    public String doRegister(@RequestParam String username, @RequestParam String password, @RequestParam String phone, @RequestParam String email,
-                             RedirectAttributes fModel){
-        User InputUser = new User(username, password, phone, email);
-        int statusCode = userService.addUser(InputUser);
+    public String doRegister(@RequestBody User user, RedirectAttributes fModel){
+
+        int statusCode = userService.addUser(user);
         if(statusCode == 1){
             fModel.addFlashAttribute("register_success", "Registration Successful");
         }else if(statusCode == 0){

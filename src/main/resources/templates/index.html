@@ -31,6 +31,7 @@
     <div class="nav-right">
         <a th:href="@{/}">首页</a>
         <a th:href="@{/TransRecord}">交易记录</a>
+        <a th:href="@{/PostProduct}">发布商品</a>
         <a th:if="${logged}" th:text="${user.username}" th:href="@{/Account}">个人中心</a>
         <a th:unless="${logged}" th:href="@{/login}">登录</a>
     </div>

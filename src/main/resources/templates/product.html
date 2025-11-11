@@ -7,6 +7,36 @@
     <link rel="stylesheet" th:href="@{/css/product.css}">
 </head>
 <body>
+<header>
+    <div class="nav-left">
+        <h1>二手交易</h1>
+    </div>
+
+    <div class="nav-center">
+        <form th:action="@{/search}" method="get" class="search-form">
+            <input type="text" name="keyword" placeholder="搜索商品...">
+            <input type="number" name="min_price" placeholder="最低价">
+            -
+            <input type="number" name="max_price" placeholder="最高价">
+
+            <select name="condition">
+                <option value="">新旧不限</option>
+                <option value="new">全新</option>
+                <option value="like_new">几乎全新</option>
+                <option value="used">二手</option>
+            </select>
+            <button type="submit">搜索</button>
+        </form>
+    </div>
+
+    <div class="nav-right">
+        <a th:href="@{/}">首页</a>
+        <a th:href="@{/TransRecord}">交易记录</a>
+        <a th:href="@{/PostProduct}">发布商品</a>
+        <a th:if="${logged}" th:text="${user.username}" th:href="@{/Account}">个人中心</a>
+        <a th:unless="${logged}" th:href="@{/login}">登录</a>
+    </div>
+</header>
 <div class="container">
 
     <!-- 商品图片 -->
@@ -33,7 +63,7 @@
         <h3>提交评价</h3>
         <form th:action="@{/submitReview}" method="post">
             <input type="hidden" name="productId" th:value="${product.id}" />
-            <textarea name="content" placeholder="写下你的评价..."></textarea>
+            <textarea style="resize: none; box-sizing: border-box;" name="content" placeholder="写下你的评价..."></textarea>
             <br/>
             <button type="submit" class="btn">提交评价</button>
         </form>

@@ -11,7 +11,10 @@ import java.util.List;
 public class ProductService {
     @Autowired
     ProductMapper productMapper;
-    public Boolean  addProduct(Product product) {
+    public Boolean  addProduct(Product product, Integer userId) {
+        product.setUserId(userId);
+        product.setStatus("已发布");
+        System.out.println(product.toString());
         return productMapper.addProduct(product);
     }
     public Boolean updateProduct(Product product) {

@@ -66,6 +66,11 @@ public class PageController {
         return "account";
     }
 
+    @GetMapping("/PostProduct")
+    public String PostProductPage(HttpSession session, Model model){
+        return "post-product";
+    }
+
     @GetMapping("/product/{id}")
     public String ProductPage(@PathVariable Integer id, Model model){
         Product currentProduct =  productService.getProductById(id);
@@ -82,7 +87,6 @@ public class PageController {
     public String TransRecordPage(HttpSession session, Model model){
         User user = (User) session.getAttribute("user");
         List<TransRecord> transRecordList = tranRecordService.getTransRecordsByUserId(user.getId());
-        Integer transRecordNumber = transRecordList.size();
 
         // 在TransRecordPage方法里
         List<Map<String,Object>> records = new ArrayList<>();

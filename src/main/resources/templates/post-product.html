@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>发布商品</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/post-product.css}">
+</head>
+<body>
+<div class="container">
+    <div class="back-btn" onclick="window.location.href='/'">&lt;返回</div>
+    <h2>发布商品</h2>
+
+    <p th:if="${status == 'success'} " th:text="${status}" class="msg"></p>
+    <p th:if="${status == 'fatal'}" th:text="${status}" class="msg" style="color:red;"></p>
+
+    <form th:action="@{/doPostProduct}" method="post">
+        <label for="name">商品名称</label>
+        <input type="text" id="name" name="name" placeholder="请输入商品名称" required>
+
+        <label for="price">价格 (元)</label>
+        <input type="number" id="price" name="price" placeholder="请输入价格" step="0.01" required>
+
+        <label for="image">图片链接</label>
+        <input type="text" id="image" name="image" placeholder="请输入图片URL" required>
+
+        <label for="category">分类</label>
+        <select id="category" name="category" required>
+            <option value="">请选择分类</option>
+            <option value="电子产品">电子产品</option>
+            <option value="书籍">书籍</option>
+            <option value="生活用品">生活用品</option>
+            <option value="服装">服装</option>
+            <option value="其他">其他</option>
+        </select>
+
+        <label for="condition">新旧程度</label>
+        <select id="condition" name="condition" required>
+            <option value="">请选择成色</option>
+            <option value="全新">全新</option>
+            <option value="九成新">九成新</option>
+            <option value="八成新">八成新</option>
+            <option value="较旧">较旧</option>
+        </select>
+
+        <label for="description">商品描述</label>
+        <textarea id="description" name="description" placeholder="请输入详细描述"></textarea>
+
+        <button type="submit" class="btn">发布商品</button>
+    </form>
+</div>
+</body>
+</html>
