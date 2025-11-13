@@ -3,6 +3,7 @@ package com.celivra.transaction.Pojo;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 public class TransRecord {
@@ -39,5 +40,9 @@ public class TransRecord {
         this.description = description;
         this.sendAddress = sendAddress;
         this.receiveAddress = receiveAddress;
+    }
+    public String FormatDate() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return purchaseTime.format(dtf);
     }
 }

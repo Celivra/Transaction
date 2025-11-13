@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -92,6 +93,7 @@ public class PageController {
         // 在TransRecordPage方法里
         List<Map<String,Object>> buyRecords= new ArrayList<>();
         List<Map<String,Object>> sellRecords= new ArrayList<>();
+
         for(TransRecord tr : buyList){
             Product product = productService.getProductById(tr.getProductId());
             Map<String,Object> map = new HashMap<>();

@@ -17,6 +17,9 @@ public class TranRecordService {
     public Boolean updateTranRecord(TransRecord transRecord){
         return transRecordMapper.updateTransRecord(transRecord);
     }
+    public TransRecord getTransRecordById(Integer id){
+        return transRecordMapper.getTransRecordById(id);
+    }
     public List<TransRecord> getTransRecordsByBuyer(Integer userId){
         return transRecordMapper.getTransRecordsByBuyer(userId);
     }

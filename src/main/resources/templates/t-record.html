@@ -1,27 +1,73 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>交易记录</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/record.css}">
 </head>
 <body>
 <div class="container">
-    <h2 th:text="${user.username} + ' 的交易记录'">交易记录</h2>
+    <h2 style="text-align:center;">交易记录</h2>
 
-    <div class="record-list">
-        <div th:if="${#lists.isEmpty(records)}">暂无交易记录</div>
-
-        <div th:each="rec : ${records}" class="record-item">
-            <p><strong>交易编号：</strong><span th:text="${rec.record.id}"></span></p>
-            <p><strong>商品名称：</strong><span th:text="${rec.productName}"></span></p>
-            <p><strong>购买时间：</strong><span th:text="${#temporals.format(rec.record.purchaseTime,'yyyy-MM-dd HH:mm')}"></span></p>
-            <p><strong>状态：</strong><span th:text="${rec.record.status}"></span></p>
-            <p><strong>描述：</strong><span th:text="${rec.record.description}"></span></p>
-        </div>
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab('buy')">我买到的</div>
+        <div class="tab" onclick="switchTab('sell')">我卖出的</div>
     </div>
 
+    <!-- 我买到的 -->
+    <div id="buy-records" class="records active">
+        <div th:each="item : ${buy_records}" class="record-card">
+            <div class="record-info">
+                <p>商品：<span th:text="${item.productName}"></span></p>
+                <p>时间：<span th:text="${item.record.FormatDate()}"></span></p>
+                <p>发货地址：<span th:text="${item.record.sendAddress}"></span></p>
+                <p>收货地址：<span th:text="${item.record.receiveAddress}"></span></p>
+                <p>状态：<span th:text="${item.record.status}"></span></p>
+            </div>
+        </div>
+        <p th:if="${#lists.isEmpty(buy_records)}" style="text-align:center; color:#999;">暂无记录</p>
+    </div>
+
+    <!-- 我卖出的 -->
+    <div id="sell-records" class="records">
+        <div th:each="item : ${sell_records}" class="record-card">
+            <div class="record-info">
+                <p>商品：<span th:text="${item.productName}"></span></p>
+                <p>时间：<span th:text="${item.record.FormatDate()}"></span></p>
+                <p>发货地址：<span th:text="${item.record.sendAddress}"></span></p>
+                <p>收货地址：<span th:text="${item.record.receiveAddress}"></span></p>
+                <p>状态：<span th:text="${item.record.status}"></span></p>
+            </div>
+            <button th:if="${item.record.status != '已发货'}"
+                    th:onclick="'shipNow(' + ${item.record.id} + ')'">现在发货</button>
+        </div>
+        <p th:if="${#lists.isEmpty(sell_records)}" style="text-align:center; color:#999;">暂无记录</p>
+    </div>
 </div>
+
+<script>
+    function switchTab(tab) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.records').forEach(r => r.classList.remove('active'));
+
+        document.querySelector(`.tab[onclick="switchTab('${tab}')"]`).classList.add('active');
+        document.getElementById(tab + '-records').classList.add('active');
+    }
+
+    function shipNow(recordId) {
+        if (confirm("确认要发货吗？")) {
+            fetch(`/shipNow?recordId=${recordId}`, {
+                method: 'POST'
+            }).then(res => {
+                if (res.ok) {
+                    alert("发货成功！");
+                    location.reload();
+                } else {
+                    alert("发货失败，请稍后再试。");
+                }
+            });
+        }
+    }
+</script>
 </body>
 </html>

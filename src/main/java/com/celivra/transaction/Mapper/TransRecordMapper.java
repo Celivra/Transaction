@@ -14,11 +14,14 @@ public interface TransRecordMapper {
             "values(#{buyerId}, #{sellerId}, #{productId}, #{purchaseTime},#{status}, #{description}, #{sendAddress}, #{receiveAddress})")
     Boolean addTransRecord(TransRecord transRecord);
 
-    @Insert("update t_record set buyer_id=#{buyerId}, seller_id=#{sellerId}, product_id=#{productID}, " +
+    @Insert("update t_record set buyer_id=#{buyerId}, seller_id=#{sellerId}, product_id=#{productId}, " +
             "purchase_time=#{purchaseTime}, status=#{status}, " +
             "description=#{description}, send_address=#{sendAddress}, " +
             "receive_address=#{receiveAddress} where id=#{id}")
     Boolean updateTransRecord(TransRecord transRecord);
+
+    @Select("select * from t_record where id = #{id}")
+    TransRecord getTransRecordById(Integer id);
 
     @Select("select * from t_record where seller_id=#{sellerId} order by id desc")
     List<TransRecord> getTransRecordsBySeller(Integer userId);
