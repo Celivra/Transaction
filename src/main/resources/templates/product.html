@@ -56,7 +56,20 @@
             <span><strong>卖家：</strong><span th:text="${seller.username}"></span></span>
             <a th:href="'mailto:' + ${seller.email}" class="btn">联系卖家</a>
         </div>
+
+        <div class="order-section">
+            <form th:action="@{/Order}" method="get">
+                <input type="hidden" name="productId" th:value="${product.id}">
+                <input type="hidden" name="userId" th:value="${product.userId}">
+                <button type="submit" class="order-btn">立即下单</button>
+            </form>
+        </div>
+        <p th:if="${orderStatus}"
+           th:text="${orderStatus}"
+           style="color: red; font-weight: bold;">
+        </p>
     </div>
+
 
     <!-- 评价提交 -->
     <div class="review-section">

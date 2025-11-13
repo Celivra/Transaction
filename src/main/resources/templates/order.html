@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>提交订单</title>
+    <link rel="stylesheet" th:href="@{/css/order.css}">
+</head>
+<body>
+<div class="order-container">
+    <h2>确认订单</h2>
+
+    <div class="order-item">
+        <label>商品：</label>
+        <p th:text="${product.name}"></p>
+    </div>
+
+    <div class="order-item">
+        <label>价格：</label>
+        <p th:text="${product.price} + ' 元'"></p>
+    </div>
+
+    <form th:action="@{/doSubmitOrder}" method="post">
+        <input type="hidden" name="productId" th:value="${product.id}" />
+
+        <div class="order-item">
+            <label>收货地址：</label>
+            <textarea style="resize: none; box-sizing: border-box;" name="address" placeholder="请输入收货地址" required></textarea>
+        </div>
+
+        <div class="order-item">
+            <label>备注：</label>
+            <textarea style="resize: none; box-sizing: border-box;" name="description" placeholder=""></textarea>
+        </div>
+
+        <button type="submit">提交订单</button>
+    </form>
+</div>
+</body>
+</html>

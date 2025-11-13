@@ -10,13 +10,14 @@ import java.util.List;
 @Mapper
 public interface TransRecordMapper {
 
-    @Insert("insert into t_record(user_id, product_id, purchase_time, status, description) " +
-            "values({userId}, #{productId}, #{purchaseTime},#{status}, #{description})")
+    @Insert("insert into t_record(user_id, product_id, purchase_time, status, description, send_address, receive_address) " +
+            "values(#{userId}, #{productId}, #{purchaseTime},#{status}, #{description}, #{sendAddress}, #{receiveAddress})")
     Boolean addTransRecord(TransRecord transRecord);
 
     @Insert("update t_record set user_id=#{userId}, product_id=#{productID}, " +
             "purchase_time=#{purchaseTime}, status=#{status}, " +
-            "description=#{description} where id=#{id}")
+            "description=#{description}, send_address=#{sendAddress}, " +
+            "receive_address=#{receiveAddress} where id=#{id}")
     Boolean updateTransRecord(TransRecord transRecord);
 
     @Select("select * from t_record where user_id=#{userId} order by id desc")

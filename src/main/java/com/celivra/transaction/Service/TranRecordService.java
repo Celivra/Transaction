@@ -11,7 +11,7 @@ import java.util.List;
 public class TranRecordService {
     @Autowired
     TransRecordMapper transRecordMapper;
-    public Boolean addTranRecord(TransRecord transRecord){
+    public Boolean addTransRecord(TransRecord transRecord){
         return transRecordMapper.addTransRecord(transRecord);
     }
     public Boolean updateTranRecord(TransRecord transRecord){
