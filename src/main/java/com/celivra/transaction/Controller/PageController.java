@@ -59,10 +59,8 @@ public class PageController {
     public String AccountPage(HttpSession session, Model model){
         User user = (User) session.getAttribute("user");
         List<Product> productList = productService.getProductsByUserId(user.getId());
-        List<TransRecord> transRecordList = tranRecordService.getTransRecordsByUserId(user.getId());
 
         model.addAttribute("product_list",productList);
-        model.addAttribute("trans_list", transRecordList);
         model.addAttribute("user", user);
 
         return "account";
@@ -88,20 +86,29 @@ public class PageController {
     @GetMapping("/TransRecord")
     public String TransRecordPage(HttpSession session, Model model){
         User user = (User) session.getAttribute("user");
-        List<TransRecord> transRecordList = tranRecordService.getTransRecordsByUserId(user.getId());
+        List<TransRecord> buyList = tranRecordService.getTransRecordsByBuyer(user.getId());
+        List<TransRecord> sellList = tranRecordService.getTransRecordsBySeller(user.getId());
 
         // 在TransRecordPage方法里
-        List<Map<String,Object>> records = new ArrayList<>();
-        for(TransRecord tr : transRecordList){
+        List<Map<String,Object>> buyRecords= new ArrayList<>();
+        List<Map<String,Object>> sellRecords= new ArrayList<>();
+        for(TransRecord tr : buyList){
             Product product = productService.getProductById(tr.getProductId());
             Map<String,Object> map = new HashMap<>();
             map.put("record", tr);
             map.put("productName", product.getName());
-            records.add(map);
+            buyRecords.add(map);
         }
-        model.addAttribute("records", records);
+        for(TransRecord tr : sellList){
+            Product product = productService.getProductById(tr.getProductId());
+            Map<String,Object> map = new HashMap<>();
+            map.put("record", tr);
+            map.put("productName", product.getName());
+            sellRecords.add(map);
+        }
 
-
+        model.addAttribute("buy_records", buyRecords);
+        model.addAttribute("sell_records", sellRecords);
         model.addAttribute("user", user);
         return "t-record";
     }

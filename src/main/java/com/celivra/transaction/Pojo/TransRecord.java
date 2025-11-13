@@ -7,7 +7,8 @@ import java.time.LocalDateTime;
 @Data
 public class TransRecord {
     Integer id;
-    Integer userId;
+    Integer buyerId;
+    Integer sellerId;
     Integer productId;
     LocalDateTime purchaseTime;
     String status;
@@ -17,10 +18,10 @@ public class TransRecord {
 
     public TransRecord() {}
 
-
-    public TransRecord(Integer id, Integer userId, Integer productId, LocalDateTime purchaseTime, String status, String description, String sendAddress, String receiveAddress) {
+    public TransRecord(Integer id, Integer buyerId, Integer sellerId, Integer productId, LocalDateTime purchaseTime, String status, String description, String sendAddress, String receiveAddress) {
         this.id = id;
-        this.userId = userId;
+        this.buyerId = buyerId;
+        this.sellerId = sellerId;
         this.productId = productId;
         this.purchaseTime = purchaseTime;
         this.status = status;
@@ -29,8 +30,9 @@ public class TransRecord {
         this.receiveAddress = receiveAddress;
     }
 
-    public TransRecord(Integer userId, Integer productId, LocalDateTime purchaseTime, String status, String description, String sendAddress, String receiveAddress) {
-        this.userId = userId;
+    public TransRecord(Integer buyerId, Integer sellerId, Integer productId, LocalDateTime purchaseTime, String status, String description, String sendAddress, String receiveAddress) {
+        this.buyerId = buyerId;
+        this.sellerId = sellerId;
         this.productId = productId;
         this.purchaseTime = purchaseTime;
         this.status = status;

@@ -2,7 +2,9 @@ package com.celivra.transaction.Controller;
 
 import com.celivra.transaction.Pojo.TransRecord;
 import com.celivra.transaction.Pojo.User;
+import com.celivra.transaction.Service.ProductService;
 import com.celivra.transaction.Service.TranRecordService;
+import com.celivra.transaction.Service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,10 @@ import java.time.LocalDateTime;
 public class doSubmitOrder {
     @Autowired
     TranRecordService tranRecordService;
+    @Autowired
+    ProductService productService;
+    @Autowired
+    UserService userService;
 
     @PostMapping("/doSubmitOrder")
     public String SubmitOrder(@RequestParam Integer productId,
@@ -23,11 +29,13 @@ public class doSubmitOrder {
                               @RequestParam String description,
                               HttpSession session,
                               RedirectAttributes fModel) {
-        User user = (User) session.getAttribute("user");
+        Integer sellerId = productService.getProductById(productId).getUserId();
+        User buyer = (User) session.getAttribute("user");
 
         // 创建交易记录对象
         TransRecord record = new TransRecord();
-        record.setUserId(user.getId());
+        record.setBuyerId(buyer.getId());
+        record.setSellerId(sellerId);
         record.setProductId(productId);
         record.setPurchaseTime(LocalDateTime.now());
         record.setStatus("待发货");
