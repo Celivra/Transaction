@@ -74,7 +74,7 @@
     <!-- 评价提交 -->
     <div class="review-section">
         <h3>提交评价</h3>
-        <form th:action="@{/submitReview}" method="post">
+        <form th:action="@{/submitEvaluate}" method="post">
             <input type="hidden" name="productId" th:value="${product.id}" />
             <textarea style="resize: none; box-sizing: border-box;" name="content" placeholder="写下你的评价..."></textarea>
             <br/>

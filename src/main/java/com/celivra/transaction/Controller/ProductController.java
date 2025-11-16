@@ -48,6 +48,7 @@ public class ProductController {
         model.addAttribute("productList", results);
         if(user != null) {
             model.addAttribute("user", user);
+            model.addAttribute("logged", true);
         }
 
         return "index"; // 返回你要显示结果的页面
