@@ -19,30 +19,51 @@
     </div>
 
     <!-- 我发布的商品 -->
-    <div class="product-list">
-        <h2>我发布的商品</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>商品ID</th>
-                <th>商品名称</th>
-                <th>价格</th>
-                <th>描述</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="product : ${product_list}">
-                <td th:text="${product.id}"></td>
-                <td th:text="${product.name}"></td>
-                <td th:text="${product.price}"></td>
-                <td th:text="${product.description}"></td>
-            </tr>
-            <tr th:if="${#lists.isEmpty(product_list)}">
-                <td colspan="4">暂无商品</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+
+    <h2>我发布的商品</h2>
+    <main class="product-grid">
+        <!-- 商品卡片循环 -->
+        <div class="product-card"
+             th:each="product : ${product_list}"
+             th:onclick="|location.href='/seller-product/${product.id}'|">
+            <img th:src="@{${product.image}}" alt="商品图片">
+            <h3 th:text="${product.name}">商品名称</h3>
+            <p th:text="'￥' + ${product.price}">价格</p>
+        </div>
+    </main>
+<!--    <div class="product-list">-->
+<!--        <table>-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>商品ID</th>-->
+<!--                <th>商品名称</th>-->
+<!--                <th>价格</th>-->
+<!--                <th>描述</th>-->
+<!--                <th></th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="product : ${product_list}">-->
+<!--                <td th:text="${product.id}"></td>-->
+<!--                <td th:text="${product.name}"></td>-->
+<!--                <td th:text="${product.price}"> </td>-->
+<!--                &lt;!&ndash; 限制字数的描述 &ndash;&gt;-->
+<!--                <td>-->
+<!--                    <div class="desc" th:text="${product.description}"> </div>-->
+<!--                </td>-->
+
+<!--                <td>-->
+<!--                    <button class="btn-danger">下架商品</button>-->
+<!--                </td>-->
+<!--            </tr>-->
+
+<!--            <tr th:if="${#lists.isEmpty(product_list)}">-->
+<!--                <td colspan="5" style="text-align:center; color:#888;">暂无商品</td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+
 
 </div>
 </body>

@@ -53,4 +53,13 @@ public class ProductController {
 
         return "index"; // 返回你要显示结果的页面
     }
+    @GetMapping("/TakeOffProduct")
+    public String takeOffProduct(@RequestParam Integer productId) {
+        Product product = productService.getProductById(productId);
+        System.out.println(product);
+        product.setStatus("已下架");
+        System.out.println(product);
+        productService.updateProduct(product);
+        return "redirect:/";
+    }
 }

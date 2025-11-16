@@ -25,7 +25,7 @@ public interface ProductMapper {
     @Select("select * from product where user_id = #{id} order by id desc")
     List<Product> getProductsByUserId(Integer id);
 
-    @Select("select * from product order by id desc")
+    @Select("select * from product where status not like '已下架' order by id desc")
     List<Product> getAllProducts();
 
     @Select("SELECT * FROM product " +

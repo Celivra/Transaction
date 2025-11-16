@@ -43,7 +43,6 @@ public class PageController {
         model.addAttribute("productList", allProducts);
         if(user != null){
             model.addAttribute("user", user);
-            model.addAttribute("logged", true);
         }
 
         return "index";
@@ -72,8 +71,22 @@ public class PageController {
         return "post-product";
     }
 
+    @GetMapping("/seller-product/{id}")
+    public String SellerProductPage(@PathVariable Integer id, Model model,  HttpSession session){
+        Product currentProduct =  productService.getProductById(id);
+        List<Evaluate> evaluateList = evaluateService.getEvaluatesByProductId(id);
+
+        model.addAttribute("product", currentProduct);
+        model.addAttribute("evaluates", evaluateList);
+
+        User user = (User) session.getAttribute("user");
+        if(user != null){
+            model.addAttribute("user", user);
+        }
+        return "seller-product";
+    }
     @GetMapping("/product/{id}")
-    public String ProductPage(@PathVariable Integer id, Model model){
+    public String ProductPage(@PathVariable Integer id, Model model, HttpSession session){
         Product currentProduct =  productService.getProductById(id);
         User seller = userService.getUserById(currentProduct.getUserId());
         List<Evaluate> evaluateList = evaluateService.getEvaluatesByProductId(id);
@@ -81,6 +94,11 @@ public class PageController {
         model.addAttribute("product", currentProduct);
         model.addAttribute("seller", seller);
         model.addAttribute("evaluates", evaluateList);
+
+        User user = (User) session.getAttribute("user");
+        if(user != null){
+            model.addAttribute("user", user);
+        }
         return "product";
     }
 

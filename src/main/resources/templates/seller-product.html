@@ -41,48 +41,45 @@
 <div class="container">
 
     <!-- 商品图片 -->
+    <form>
     <div class="product-detail">
 
-        <h2 th:text="${product.name}">商品名称</h2>
-        <p><strong>价格：</strong><span th:text="${product.price}"></span> 元</p>
-        <img th:src="@{${product.image}}" alt="Product Image" class="product-image"/>
-        <p><strong>分类：</strong><span th:text="${product.category}"></span></p>
-        <p><strong>成色/状态：</strong><span th:text="${product.condition}"></span></p>
-        <p><strong>状态：</strong><span th:text="${product.status}"></span></p>
-        <p><strong>描述：</strong></p>
-        <p th:text="${product.description}"></p>
-
-        <!-- 卖家信息 -->
-        <div class="seller-section">
-            <span><strong>卖家：</strong><span th:text="${seller.username}"></span></span>
-            <a th:href="'mailto:' + ${seller.email}" class="btn">联系卖家</a>
-        </div>
-
-        <div class="order-section">
-            <form th:action="@{/Order}" method="get">
-                <input type="hidden" name="productId" th:value="${product.id}">
-                <input type="hidden" name="userId" th:value="${product.userId}">
-                <button type="submit" class="order-btn">立即下单</button>
-            </form>
-        </div>
-        <p th:if="${orderStatus}"
-           th:text="${orderStatus}"
-           style="color: red; font-weight: bold;">
+        <p><strong>商品名:</strong>
+            <input type="text" id="name" name="name" th:value="${product.name}">
         </p>
+        <p><strong>价格：</strong>
+            <input type="number" id="price" name="price" th:value="${product.price}"> 元
+        </p>
+        <p><strong>图片：</strong>
+            <input type="text" id="image" name="image"  th:value="${product.image}">
+        </p>
+        <p><strong>分类：</strong>
+            <select id="category" name="category" required>
+                <option value="">请选择分类</option>
+                <option value="电子产品">电子产品</option>
+                <option value="书籍">书籍</option>
+                <option value="生活用品">生活用品</option>
+                <option value="服装">服装</option>
+                <option value="其他">其他</option>
+            </select>
+        </p>
+        <p><strong>新旧程度：</strong>
+            <select id="condition" name="condition" required>
+                <option value="">请选择成色</option>
+                <option value="全新">全新</option>
+                <option value="九成新">九成新</option>
+                <option value="八成新">八成新</option>
+                <option value="较旧">较旧</option>
+            </select>
+        </p>
+        <p><strong>状态：</strong> <span th:text="${product.status}"></span> </p>
+        <p><strong>描述：</strong></p>
+        <textarea style="box-sizing: border-box; width: 100%; height: 100px; resize: none;" id="description" name="description" th:value="${product.description}"></textarea>
+
+        <button type="submit">更新产品</button>
+        <button th:onclick="|location.href='/TakeOffProduct?productId=${product.id}'|" type="button">下架产品</button>
     </div>
-
-
-    <!-- 评价提交 -->
-    <div class="review-section">
-        <h3>提交评价</h3>
-        <form th:action="@{/submitEvaluate}" method="post">
-            <input type="hidden" name="productId" th:value="${product.id}" />
-            <textarea style="resize: none; box-sizing: border-box;" name="content" placeholder="写下你的评价..."></textarea>
-            <br/>
-            <button type="submit" class="btn">提交评价</button>
-        </form>
-    </div>
-
+    </form>
     <!-- 已有评价 -->
     <div class="reviews-list">
         <h3>已有评价</h3>
