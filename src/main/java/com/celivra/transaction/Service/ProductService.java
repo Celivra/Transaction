@@ -29,4 +29,16 @@ public class ProductService {
     public List<Product> getAllProducts() {
         return productMapper.getAllProducts();
     }
+    public List<Product> searchProducts(String keyword, Double minPrice, Double maxPrice, String condition) {
+        if(keyword == null || keyword.isEmpty()) {
+            keyword = "%";
+        } if(minPrice == null || minPrice < 0) {
+            minPrice = 0.0;
+        } if(maxPrice == null || maxPrice < 0) {
+            maxPrice = 999999999.0;
+        } if(condition == null || condition.isEmpty()) {
+            condition = "%";
+        }
+        return productMapper.searchProducts(keyword, minPrice, maxPrice, condition);
+    }
 }

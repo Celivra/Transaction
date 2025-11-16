@@ -27,4 +27,10 @@ public interface ProductMapper {
 
     @Select("select * from product order by id desc")
     List<Product> getAllProducts();
+
+    @Select("SELECT * FROM product " +
+            "WHERE name LIKE CONCAT('%', #{keyword}, '%') " +
+            "AND price >= #{minPrice} AND price <= #{maxPrice} " +
+            "AND _condition LIKE #{condition} ORDER BY id DESC")
+    List<Product> searchProducts(String keyword, Double minPrice, Double maxPrice, String condition);
 }

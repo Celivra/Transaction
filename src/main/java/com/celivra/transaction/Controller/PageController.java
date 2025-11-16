@@ -40,7 +40,7 @@ public class PageController {
         User user = (User) session.getAttribute("user");
         List<Product> allProducts = productService.getAllProducts();
 
-        model.addAttribute("all_product", allProducts);
+        model.addAttribute("productList", allProducts);
         if(user != null){
             model.addAttribute("user", user);
             model.addAttribute("logged", true);
