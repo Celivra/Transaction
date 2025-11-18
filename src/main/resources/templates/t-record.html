@@ -24,6 +24,7 @@
                 <p>收货地址：<span th:text="${item.record.receiveAddress}"></span></p>
                 <p>状态：<span th:text="${item.record.status}"></span></p>
             </div>
+            <button th:if="${item.record.status == '待发货'}">remove this</button>
         </div>
         <p th:if="${#lists.isEmpty(buy_records)}" style="text-align:center; color:#999;">暂无记录</p>
     </div>

@@ -1,39 +1,22 @@
 package com.celivra.transaction.Controller;
 
-import com.celivra.transaction.Pojo.Evaluate;
 import com.celivra.transaction.Pojo.Product;
-import com.celivra.transaction.Pojo.TransRecord;
 import com.celivra.transaction.Pojo.User;
-import com.celivra.transaction.Service.EvaluateService;
 import com.celivra.transaction.Service.ProductService;
-import com.celivra.transaction.Service.TranRecordService;
-import com.celivra.transaction.Service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class PageController {
 
     @Autowired
     ProductService productService;
-    @Autowired
-    UserService userService;
-    @Autowired
-    TranRecordService tranRecordService;
-    @Autowired
-    EvaluateService evaluateService;
 
     @GetMapping("/")
     public String IndexPage(Model model, HttpSession session) {
@@ -71,67 +54,7 @@ public class PageController {
         return "post-product";
     }
 
-    @GetMapping("/seller-product/{id}")
-    public String SellerProductPage(@PathVariable Integer id, Model model,  HttpSession session){
-        Product currentProduct =  productService.getProductById(id);
-        List<Evaluate> evaluateList = evaluateService.getEvaluatesByProductId(id);
 
-        model.addAttribute("product", currentProduct);
-        model.addAttribute("evaluates", evaluateList);
-
-        User user = (User) session.getAttribute("user");
-        if(user != null){
-            model.addAttribute("user", user);
-        }
-        return "seller-product";
-    }
-    @GetMapping("/product/{id}")
-    public String ProductPage(@PathVariable Integer id, Model model, HttpSession session){
-        Product currentProduct =  productService.getProductById(id);
-        User seller = userService.getUserById(currentProduct.getUserId());
-        List<Evaluate> evaluateList = evaluateService.getEvaluatesByProductId(id);
-
-        model.addAttribute("product", currentProduct);
-        model.addAttribute("seller", seller);
-        model.addAttribute("evaluates", evaluateList);
-
-        User user = (User) session.getAttribute("user");
-        if(user != null){
-            model.addAttribute("user", user);
-        }
-        return "product";
-    }
-
-    @GetMapping("/TransRecord")
-    public String TransRecordPage(HttpSession session, Model model){
-        User user = (User) session.getAttribute("user");
-        List<TransRecord> buyList = tranRecordService.getTransRecordsByBuyer(user.getId());
-        List<TransRecord> sellList = tranRecordService.getTransRecordsBySeller(user.getId());
-
-        // 在TransRecordPage方法里
-        List<Map<String,Object>> buyRecords= new ArrayList<>();
-        List<Map<String,Object>> sellRecords= new ArrayList<>();
-
-        for(TransRecord tr : buyList){
-            Product product = productService.getProductById(tr.getProductId());
-            Map<String,Object> map = new HashMap<>();
-            map.put("record", tr);
-            map.put("productName", product.getName());
-            buyRecords.add(map);
-        }
-        for(TransRecord tr : sellList){
-            Product product = productService.getProductById(tr.getProductId());
-            Map<String,Object> map = new HashMap<>();
-            map.put("record", tr);
-            map.put("productName", product.getName());
-            sellRecords.add(map);
-        }
-
-        model.addAttribute("buy_records", buyRecords);
-        model.addAttribute("sell_records", sellRecords);
-        model.addAttribute("user", user);
-        return "t-record";
-    }
     @GetMapping("/Order")
     public String OrderPage(@RequestParam Integer userId, @RequestParam Integer productId, HttpSession session, Model model, RedirectAttributes fModel) {
         User user = (User) session.getAttribute("user");

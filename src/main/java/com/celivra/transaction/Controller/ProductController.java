@@ -1,8 +1,11 @@
 package com.celivra.transaction.Controller;
 
+import com.celivra.transaction.Pojo.Evaluate;
 import com.celivra.transaction.Pojo.Product;
 import com.celivra.transaction.Pojo.User;
+import com.celivra.transaction.Service.EvaluateService;
 import com.celivra.transaction.Service.ProductService;
+import com.celivra.transaction.Service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,10 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productService;
+    @Autowired
+    EvaluateService evaluateService;
+    @Autowired
+    UserService userService;
 
     @PostMapping("/doPostProduct")
     public String addProduct(Product product, HttpSession session, RedirectAttributes fModel) {
@@ -61,5 +68,36 @@ public class ProductController {
         System.out.println(product);
         productService.updateProduct(product);
         return "redirect:/";
+    }
+
+    @GetMapping("/seller-product/{id}")
+    public String SellerProductPage(@PathVariable Integer id, Model model,  HttpSession session){
+        Product currentProduct =  productService.getProductById(id);
+        List<Evaluate> evaluateList = evaluateService.getEvaluatesByProductId(id);
+
+        model.addAttribute("product", currentProduct);
+        model.addAttribute("evaluates", evaluateList);
+
+        User user = (User) session.getAttribute("user");
+        if(user != null){
+            model.addAttribute("user", user);
+        }
+        return "seller-product";
+    }
+    @GetMapping("/product/{id}")
+    public String ProductPage(@PathVariable Integer id, Model model, HttpSession session){
+        Product currentProduct =  productService.getProductById(id);
+        User seller = userService.getUserById(currentProduct.getUserId());
+        List<Evaluate> evaluateList = evaluateService.getEvaluatesByProductId(id);
+
+        model.addAttribute("product", currentProduct);
+        model.addAttribute("seller", seller);
+        model.addAttribute("evaluates", evaluateList);
+
+        User user = (User) session.getAttribute("user");
+        if(user != null){
+            model.addAttribute("user", user);
+        }
+        return "product";
     }
 }
