@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <title>Account Page</title>
     <link rel="stylesheet" th:href="@{/css/account.css}">
+    <link rel="stylesheet" th:href="@{/css/head.css}">
 </head>
 <body>
+<div th:replace="fragments/header :: header"></div>
 <div class="container">
 
     <!-- 用户信息 -->
@@ -14,7 +16,7 @@
         <p><strong>用户名：</strong><span th:text="${user.username}"></span></p>
         <p><strong>邮箱：</strong><span th:text="${user.email}"></span></p>
         <p><strong>电话：</strong><span th:text="${user.phone}"></span></p>
-        <a class="btn" th:href="@{/TransRecords}">查看交易记录</a>
+        <a class="btn" th:href="@{/TransRecord}">查看交易记录</a>
     </div>
 
     <!-- 我发布的商品 -->

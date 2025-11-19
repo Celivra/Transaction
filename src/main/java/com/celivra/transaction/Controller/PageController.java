@@ -28,10 +28,10 @@ public class PageController {
 
     @GetMapping("/")
     public String IndexPage(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
         List<Product> allProducts = productService.getAllProducts();
-
         model.addAttribute("productList", allProducts);
+
+        User user = (User) session.getAttribute("user");
         if(user != null){
             model.addAttribute("user", user);
         }
@@ -59,6 +59,10 @@ public class PageController {
 
     @GetMapping("/PostProduct")
     public String PostProductPage(HttpSession session, Model model){
+        User user = (User) session.getAttribute("user");
+        if(user != null){
+            model.addAttribute("user", user);
+        }
         return "post-product";
     }
 

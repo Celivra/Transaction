@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <title>提交订单</title>
     <link rel="stylesheet" th:href="@{/css/order.css}">
+    <link rel="stylesheet" th:href="@{/css/head.css}">
 </head>
 <body>
+<div th:replace="fragments/header :: header"></div>
+
 <div class="order-container">
     <h2>确认订单</h2>
 
@@ -32,7 +35,7 @@
             <textarea style="resize: none; box-sizing: border-box;" name="description" placeholder=""></textarea>
         </div>
 
-        <button type="submit">提交订单</button>
+        <button class="submit" type="submit">提交订单</button>
     </form>
 </div>
 </body>

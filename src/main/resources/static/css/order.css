@@ -5,6 +5,8 @@
 }
 body{
     font-family: "Microsoft YaHei", Arial, sans-serif;
+    background-color: #f5f6fa;
+    color: #333;
 }
 /* ------------------ 订单容器 ------------------ */
 .order-container {
@@ -59,7 +61,7 @@ body{
 }
 
 /* ------------------ 提交按钮 ------------------ */
-button[type="submit"] {
+.submit{
     width: 100%;
     background: #409eff;
     color: #fff;
@@ -72,7 +74,7 @@ button[type="submit"] {
     transition: 0.2s;
 }
 
-button[type="submit"]:hover {
+.submit:hover {
     background: #1e6fd7;
 }
 

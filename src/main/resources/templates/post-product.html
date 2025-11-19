@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <title>发布商品</title>
     <link rel="stylesheet" th:href="@{/css/post-product.css}">
+    <link rel="stylesheet" th:href="@{/css/head.css}">
 </head>
 <body>
+<div th:replace="fragments/header :: header"></div>
+
 <div class="container">
-    <div class="back-btn" onclick="window.location.href='/'">&lt;返回</div>
     <h2>发布商品</h2>
 
     <p th:if="${status == 'success'} " th:text="${status}" class="msg"></p>

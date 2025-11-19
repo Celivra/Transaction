@@ -7,37 +7,8 @@
     <link rel="stylesheet" th:href="@{/css/head.css}">
 </head>
 <body>
-<header>
-    <div class="nav-left">
-        <h1>二手交易</h1>
-    </div>
+<div th:replace="fragments/header :: header"></div>
 
-    <div class="nav-center">
-        <form th:action="@{/search}" method="get" class="search-form">
-            <input type="text" name="keyword" placeholder="搜索商品...">
-            <input type="number" name="min_price" placeholder="最低价">
-            -
-            <input type="number" name="max_price" placeholder="最高价">
-
-            <select name="condition">
-                <option value="">新旧不限</option>
-                <option value="全新">全新</option>
-                <option value="九成新">九成新</option>
-                <option value="八成新">八成新</option>
-                <option value="较旧">较旧</option>
-            </select>
-            <button type="submit">搜索</button>
-        </form>
-    </div>
-
-    <div class="nav-right">
-        <a th:href="@{/}">首页</a>
-        <a th:href="@{/TransRecord}">交易记录</a>
-        <a th:href="@{/PostProduct}">发布商品</a>
-        <a th:if="${user}" th:text="${user.username}" th:href="@{/Account}">个人中心</a>
-        <a th:unless="${user}" th:href="@{/Login}">登录</a>
-    </div>
-</header>
 <div class="container">
 
     <!-- 商品图片 -->
@@ -47,8 +18,8 @@
         <p><strong>商品名:</strong>
             <input type="text" id="name" name="name" th:value="${product.name}">
         </p>
-        <p><strong>价格：</strong>
-            <input type="number" id="price" name="price" th:value="${product.price}"> 元
+        <p><strong>价格(¥)：</strong>
+            <input type="number" id="price" name="price" th:value="${product.price}">
         </p>
         <p><strong>图片：</strong>
             <input type="text" id="image" name="image"  th:value="${product.image}">
@@ -78,6 +49,7 @@
 
         <button type="submit">更新产品</button>
         <button th:onclick="|location.href='/TakeOffProduct?productId=${product.id}'|" type="button">下架产品</button>
+        <button th:onclick="|location.href='/RemoveProduct?productId=${product.id}'|" type="button">移除产品</button>
     </div>
     </form>
     <!-- 已有评价 -->
