@@ -1,40 +1,62 @@
-body {
-    font-family: "Segoe UI", sans-serif;
-    background-color: #f8f9fa;
+/* ===================== 全局重置 ===================== */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
+body {
+    font-family: "Microsoft YaHei", Arial, sans-serif;
+    background: #f5f7fa;
+}
+
+/* ===================== 容器 ===================== */
 .container {
-    width: 80%;
+    width: 90%;
+    max-width: 900px;
     margin: 30px auto;
-    background: white;
+    background: #fff;
     border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    padding: 20px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 }
 
+/* ===================== 页标题 ===================== */
+.container h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* ===================== Tabs 样式 ===================== */
 .tabs {
     display: flex;
     justify-content: center;
-    border-bottom: 2px solid #e0e0e0;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .tab {
-    padding: 10px 30px;
+    padding: 10px 20px;
+    margin: 0 8px;
+    border-radius: 6px;
+    background: #f5f7fa;
     cursor: pointer;
-    border-bottom: 3px solid transparent;
-    font-weight: bold;
-    color: #666;
-    transition: 0.3s;
+    font-size: 15px;
+    transition: 0.2s;
 }
 
 .tab.active {
-    color: #007bff;
-    border-bottom: 3px solid #007bff;
+    background: #409eff;
+    color: #fff;
 }
 
+.tab:hover {
+    background: #67b1ff;
+    color: #fff;
+}
+
+/* ===================== 交易记录卡片 ===================== */
 .records {
     display: none;
 }
@@ -44,33 +66,129 @@ body {
 }
 
 .record-card {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 15px;
+    padding: 15px 20px;
     margin-bottom: 15px;
-    background-color: #fafafa;
+    border-radius: 8px;
+    background: #f8f8f8;
+    border-left: 4px solid #409eff;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-}
-
-.record-info {
-    flex-grow: 1;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .record-info p {
+    font-size: 14px;
+    color: #444;
     margin: 5px 0;
 }
 
-button {
-    background-color: #28a745;
-    border: none;
-    color: white;
-    padding: 8px 15px;
+/* ===================== 按钮 ===================== */
+.record-card button {
+    padding: 8px 16px;
     border-radius: 6px;
+    border: none;
     cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+    margin-top: 5px;
 }
 
-button:hover {
-    background-color: #218838;
+.record-card .btn-ship {
+    background-color: #67c23a; /* 发货按钮绿色 */
+    color: #fff;
 }
+
+.record-card .btn-remove {
+    background-color: #f56c6c; /* 删除按钮红色 */
+    color: #fff;
+}
+
+.record-card button:hover {
+    opacity: 0.9;
+}
+
+/* ===================== 无记录提示 ===================== */
+.records .no-records {
+    text-align: center;
+    color: #999;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+/*body {*/
+/*    font-family: "Segoe UI", sans-serif;*/
+/*    background-color: #f8f9fa;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
+
+/*.container {*/
+/*    width: 80%;*/
+/*    margin: 30px auto;*/
+/*    background: white;*/
+/*    border-radius: 12px;*/
+/*    box-shadow: 0 2px 10px rgba(0,0,0,0.1);*/
+/*    padding: 20px;*/
+/*}*/
+
+/*.tabs {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    border-bottom: 2px solid #e0e0e0;*/
+/*    margin-bottom: 20px;*/
+/*}*/
+
+/*.tab {*/
+/*    padding: 10px 30px;*/
+/*    cursor: pointer;*/
+/*    border-bottom: 3px solid transparent;*/
+/*    font-weight: bold;*/
+/*    color: #666;*/
+/*    transition: 0.3s;*/
+/*}*/
+
+/*.tab.active {*/
+/*    color: #007bff;*/
+/*    border-bottom: 3px solid #007bff;*/
+/*}*/
+
+/*.records {*/
+/*    display: none;*/
+/*}*/
+
+/*.records.active {*/
+/*    display: block;*/
+/*}*/
+
+/*.record-card {*/
+/*    border: 1px solid #ddd;*/
+/*    border-radius: 10px;*/
+/*    padding: 15px;*/
+/*    margin-bottom: 15px;*/
+/*    background-color: #fafafa;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: space-between;*/
+/*}*/
+
+/*.record-info {*/
+/*    flex-grow: 1;*/
+/*}*/
+
+/*.record-info p {*/
+/*    margin: 5px 0;*/
+/*}*/
+
+/*button {*/
+/*    background-color: #28a745;*/
+/*    border: none;*/
+/*    color: white;*/
+/*    padding: 8px 15px;*/
+/*    border-radius: 6px;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*button:hover {*/
+/*    background-color: #218838;*/
+/*}*/
