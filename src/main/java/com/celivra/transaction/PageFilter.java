@@ -31,6 +31,7 @@ public class PageFilter implements Filter {
         boolean isStatic = path.startsWith("/css/")
                 || path.startsWith("/js/")
                 || path.startsWith("/images/")
+                || path.startsWith("/upload/")
                 || path.startsWith("/static/");
 
         if (whiteList.contains(path) || isStatic) {

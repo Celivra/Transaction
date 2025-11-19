@@ -11,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -25,9 +28,21 @@ public class ProductController {
     UserService userService;
 
     @PostMapping("/doPostProduct")
-    public String addProduct(Product product, HttpSession session, RedirectAttributes fModel) {
-        User user = (User) session.getAttribute("user");
+    public String addProduct(@RequestParam("name") String name,
+                             @RequestParam("price") Double price,
+                             @RequestParam("image") MultipartFile image,
+                             @RequestParam("category") String category,
+                             @RequestParam("condition") String condition,
+                             @RequestParam("description") String description,
+                             HttpSession session, RedirectAttributes fModel) throws IOException {
+        String fileName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+        String uploadPath = new File("src/main/resources/static/upload").getAbsolutePath();
+        File dest = new File(uploadPath, fileName);
+        image.transferTo(dest);
 
+        String imageUrl = "/upload/" + fileName;
+        Product product = new Product(name, price, imageUrl, category, condition, description);
+        User user = (User) session.getAttribute("user");
         if(productService.addProduct(product,user.getId())){
             fModel.addFlashAttribute("status", "success");
         }else{

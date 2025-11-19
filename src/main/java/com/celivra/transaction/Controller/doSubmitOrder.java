@@ -4,7 +4,6 @@ import com.celivra.transaction.Pojo.TransRecord;
 import com.celivra.transaction.Pojo.User;
 import com.celivra.transaction.Service.ProductService;
 import com.celivra.transaction.Service.TranRecordService;
-import com.celivra.transaction.Service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
