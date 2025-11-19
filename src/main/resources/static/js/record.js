@@ -20,3 +20,17 @@ function shipNow(recordId) {
         });
     }
 }
+function deleteNow(recordId){
+    if(confirm("确认要删除吗？")){
+        fetch(`/deleteNow?recordId=${recordId}`,{
+            method:'POST'
+        }).then(res=>{
+            if (res.ok){
+                alert("删除成功");
+                location.reload();
+            }else{
+                alert("删除失败");
+            }
+        })
+    }
+}

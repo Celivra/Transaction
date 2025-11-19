@@ -20,6 +20,10 @@ public class ProductService {
     public Boolean updateProduct(Product product) {
         return productMapper.updateProduct(product);
     }
+    public Boolean takeOffProduct(Product product) {
+        product.setStatus("已下架");
+        return productMapper.updateProduct(product);
+    }
     public Product getProductById(Integer id) {
         return productMapper.getProductById(id);
     }

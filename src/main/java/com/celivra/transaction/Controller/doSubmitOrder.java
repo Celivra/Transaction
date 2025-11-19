@@ -20,8 +20,6 @@ public class doSubmitOrder {
     TranRecordService tranRecordService;
     @Autowired
     ProductService productService;
-    @Autowired
-    UserService userService;
 
     @PostMapping("/doSubmitOrder")
     public String SubmitOrder(@RequestParam Integer productId,

@@ -60,28 +60,25 @@ public class ProductController {
 
         return "index"; // 返回你要显示结果的页面
     }
-    @GetMapping("/TakeOffProduct")
-    public String takeOffProduct(@RequestParam Integer productId) {
-        Product product = productService.getProductById(productId);
-        System.out.println(product);
-        product.setStatus("已下架");
-        System.out.println(product);
-        productService.updateProduct(product);
-        return "redirect:/";
-    }
 
     @GetMapping("/seller-product/{id}")
     public String SellerProductPage(@PathVariable Integer id, Model model,  HttpSession session){
         Product currentProduct =  productService.getProductById(id);
+        User checkUser = userService.getUserById(currentProduct.getUserId());
+        User user = (User) session.getAttribute("user");
+        if(user != null){
+            model.addAttribute("user", user);
+        }
+
+        if(!checkUser.getId().equals(user.getId())){
+            return "redirect:/";
+        }
+
         List<Evaluate> evaluateList = evaluateService.getEvaluatesByProductId(id);
 
         model.addAttribute("product", currentProduct);
         model.addAttribute("evaluates", evaluateList);
 
-        User user = (User) session.getAttribute("user");
-        if(user != null){
-            model.addAttribute("user", user);
-        }
         return "seller-product";
     }
     @GetMapping("/product/{id}")
@@ -99,5 +96,33 @@ public class ProductController {
             model.addAttribute("user", user);
         }
         return "product";
+    }
+    @PostMapping("/updateProduct")
+    public String updateProduct(Product product, HttpSession session, Model model) {
+        System.out.println(product);
+        Product currentProduct = productService.getProductById(product.getId());
+        currentProduct.setName(product.getName());
+        currentProduct.setImage(product.getImage());
+        currentProduct.setPrice(product.getPrice());
+        currentProduct.setCategory(product.getCategory());
+        currentProduct.setCondition(product.getCondition());
+        currentProduct.setDescription(product.getDescription());
+
+        User checkUser = userService.getUserById(currentProduct.getUserId());
+        User user = (User) session.getAttribute("user");
+        if(!checkUser.getId().equals(user.getId())){
+            return "redirect:/seller-product/"+product.getId();
+        }
+
+        // 调用 Service 执行更新
+        boolean ok = productService.updateProduct(currentProduct);
+
+        if (ok) {
+            return "redirect:/seller-product/" + product.getId();
+        } else {
+            model.addAttribute("error", "更新失败，请稍后再试");
+            model.addAttribute("product", product);
+            return "redirect:/seller-product/" + product.getId();
+        }
     }
 }

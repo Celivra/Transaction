@@ -12,8 +12,9 @@
 <div class="container">
 
     <!-- 商品图片 -->
-    <form>
+    <form action="/updateProduct" method="post">
     <div class="product-detail">
+        <input type="hidden" name="id" th:value="${product.id}">
 
         <p><strong>商品名:</strong>
             <input type="text" id="name" name="name" th:value="${product.name}">
@@ -48,8 +49,8 @@
         <textarea style="box-sizing: border-box; width: 100%; height: 100px; resize: none;" id="description" name="description" th:value="${product.description}"></textarea>
 
         <button type="submit">更新产品</button>
-        <button th:onclick="|location.href='/TakeOffProduct?productId=${product.id}'|" type="button">下架产品</button>
-        <button th:onclick="|location.href='/RemoveProduct?productId=${product.id}'|" type="button">移除产品</button>
+        <button th:onclick="'takeOffProduct(' + ${product.id} + ')'" type="button">下架产品</button>
+        <button th:onclick="'removeProduct(' + ${product.id} + ')'" type="button">移除产品</button>
     </div>
     </form>
     <!-- 已有评价 -->
@@ -64,4 +65,5 @@
 
 </div>
 </body>
+<script th:src="@{/js/product.js}"></script>
 </html>

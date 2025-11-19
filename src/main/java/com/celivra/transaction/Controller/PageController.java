@@ -5,6 +5,7 @@ import com.celivra.transaction.Pojo.TransRecord;
 import com.celivra.transaction.Pojo.User;
 import com.celivra.transaction.Service.ProductService;
 import com.celivra.transaction.Service.TranRecordService;
+import com.celivra.transaction.Service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,8 @@ public class PageController {
     ProductService productService;
     @Autowired
     TranRecordService tranRecordService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/")
     public String IndexPage(Model model, HttpSession session) {
@@ -68,14 +71,16 @@ public class PageController {
 
 
     @GetMapping("/Order")
-    public String OrderPage(@RequestParam Integer userId, @RequestParam Integer productId, HttpSession session, Model model, RedirectAttributes fModel) {
+    public String OrderPage(@RequestParam Integer productId, HttpSession session, Model model, RedirectAttributes fModel) {
+        Product product = productService.getProductById(productId);
         User user = (User) session.getAttribute("user");
-        if(userId.equals(user.getId())){
+        User checkUser = userService.getUserById(product.getUserId());
+
+        if(checkUser.getId().equals(user.getId())){
             fModel.addFlashAttribute("orderStatus", "不可购买自己的产品");
             String backUrl = "redirect:/product/"+productId.toString();
             return backUrl;
         }
-        Product product = productService.getProductById(productId);
 
         model.addAttribute("user", user);
         model.addAttribute("product", product);

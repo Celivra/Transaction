@@ -17,6 +17,9 @@ public class TranRecordService {
     public Boolean updateTranRecord(TransRecord transRecord){
         return transRecordMapper.updateTransRecord(transRecord);
     }
+    public Boolean removeTransRecord(TransRecord transRecord){
+        return transRecordMapper.removeTransRecord(transRecord);
+    }
     public TransRecord getTransRecordById(Integer id){
         return transRecordMapper.getTransRecordById(id);
     }

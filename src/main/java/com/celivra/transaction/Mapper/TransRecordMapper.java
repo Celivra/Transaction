@@ -1,6 +1,7 @@
 package com.celivra.transaction.Mapper;
 
 import com.celivra.transaction.Pojo.TransRecord;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -19,6 +20,9 @@ public interface TransRecordMapper {
             "description=#{description}, send_address=#{sendAddress}, " +
             "receive_address=#{receiveAddress} where id=#{id}")
     Boolean updateTransRecord(TransRecord transRecord);
+
+    @Delete("delete from t_record where id = #{id}")
+    Boolean removeTransRecord(TransRecord transRecord);
 
     @Select("select * from t_record where id = #{id}")
     TransRecord getTransRecordById(Integer id);
