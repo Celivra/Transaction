@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Account Page</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/account.css}">
 </head>
 <body>
@@ -31,40 +30,6 @@
             <p th:text="'￥' + ${product.price}">价格</p>
         </div>
     </main>
-<!--    <div class="product-list">-->
-<!--        <table>-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--                <th>商品ID</th>-->
-<!--                <th>商品名称</th>-->
-<!--                <th>价格</th>-->
-<!--                <th>描述</th>-->
-<!--                <th></th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <tr th:each="product : ${product_list}">-->
-<!--                <td th:text="${product.id}"></td>-->
-<!--                <td th:text="${product.name}"></td>-->
-<!--                <td th:text="${product.price}"> </td>-->
-<!--                &lt;!&ndash; 限制字数的描述 &ndash;&gt;-->
-<!--                <td>-->
-<!--                    <div class="desc" th:text="${product.description}"> </div>-->
-<!--                </td>-->
-
-<!--                <td>-->
-<!--                    <button class="btn-danger">下架商品</button>-->
-<!--                </td>-->
-<!--            </tr>-->
-
-<!--            <tr th:if="${#lists.isEmpty(product_list)}">-->
-<!--                <td colspan="5" style="text-align:center; color:#888;">暂无商品</td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </div>-->
-
-
 </div>
 </body>
 </html>
