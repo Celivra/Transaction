@@ -2,8 +2,8 @@ HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
-!**/src/main/**/upload/
 !**/src/test/**/target/
+src/main/resources/static/upload/*
 
 ### STS ###
 .apt_generated
