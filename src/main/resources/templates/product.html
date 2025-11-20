@@ -24,9 +24,8 @@
         <!-- 卖家信息 -->
         <div class="seller-section">
             <span><strong>卖家：</strong><span th:text="${seller.username}"></span></span>
-            <!--               th:href="@{'/chat/' + ${product.userId} + '/' + ${product.id}}">-->
             <a th:unless="${product.userId == user.id}"
-               th:onclick="'chat(' + ${product.id} + ','+${user.id}+')'">
+               th:onclick="'chat(' + ${product.id} + ','+${product.userId}+')'">
                 联系卖家</a>
         </div>
 

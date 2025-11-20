@@ -1,5 +1,6 @@
 package com.celivra.transaction.Service;
 
+import com.celivra.transaction.DTO.ChatSummary;
 import com.celivra.transaction.Mapper.MessageMapper;
 import com.celivra.transaction.Pojo.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +19,8 @@ public class MessageService {
 
     public boolean sendMessage(Message msg){
         return mapper.insertMessage(msg);
+    }
+    public List<ChatSummary> getChatSummaryList(Integer userId){
+        return mapper.getChatSummaryList(userId);
     }
 }

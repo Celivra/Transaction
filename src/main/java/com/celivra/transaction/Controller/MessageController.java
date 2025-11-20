@@ -1,5 +1,6 @@
 package com.celivra.transaction.Controller;
 
+import com.celivra.transaction.DTO.ChatSummary;
 import com.celivra.transaction.Pojo.Message;
 import com.celivra.transaction.Pojo.Product;
 import com.celivra.transaction.Pojo.User;
@@ -34,9 +35,9 @@ public class MessageController {
             HttpSession session,
             Model model
     ){
+        Product p = productService.getProductById(productId);
         User me = (User) session.getAttribute("user");
         User other = userService.getUserById(otherUserId);
-        Product p = productService.getProductById(productId);
 
         model.addAttribute("me", me);
         model.addAttribute("other", other);
@@ -48,6 +49,16 @@ public class MessageController {
         }
 
         return "chat";
+    }
+    @GetMapping("/chat/list")
+    public String chatListPage(HttpSession session, Model model){
+        User user = (User) session.getAttribute("user");
+        if(user == null) return "redirect:/Login";
+
+        List<ChatSummary> list = messageService.getChatSummaryList(user.getId());
+        model.addAttribute("chatList", list);
+
+        return "chat_list"; // 对应 chat_list.html
     }
 
     @ResponseBody
