@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>聊天</title>
+    <link rel="stylesheet" th:href="@{/css/chat.css}">
+    <link rel="stylesheet" th:href="@{/css/head.css}">
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="chat-container">
+
+    <h2 th:text="'与 ' + ${other.username} + ' 对话  产品:'+${product.name}"></h2>
+
+    <div id="chatBox" class="messages"></div>
+
+    <div class="input-area">
+        <input id="msgInput" type="text" placeholder="输入消息…"/>
+        <button onclick="sendMsg()">发送</button>
+    </div>
+
+</div>
+<script>
+    const me = [[${me.id}]];
+    const other = [[${other.id}]];
+    const productId = [[${product.id}]];
+
+    function loadMessages() {
+        fetch(`/chat/history?me=${me}&other=${other}&productId=${productId}`)
+            .then(res => res.json())
+            .then(data => {
+                let html = "";
+                data.forEach(m => {
+                    if (m.senderId === me) {
+                        html += `<div class="me"><div class="message">${m.content}</div></div>`;
+                    } else {
+                        html += `<div class="other"><div class="message">${m.content}</div></div>`;
+                    }
+                });
+                const box = document.getElementById("chatBox");
+                box.innerHTML = html;
+                box.scrollTop = box.scrollHeight;
+            });
+    }
+
+    function sendMsg() {
+        const text = document.getElementById("msgInput").value;
+        if (!text.trim()) return;
+
+        fetch("/chat/send", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                senderId: me,
+                receiverId: other,
+                productId: productId,
+                content: text
+            })
+        }).then(() => {
+            document.getElementById("msgInput").value = "";
+            loadMessages();
+        });
+    }
+
+    // 自动每 2 秒刷新消息
+    setInterval(loadMessages, 2000);
+
+    loadMessages();
+</script>
+</body>
+</html>

@@ -24,3 +24,25 @@ function removeProduct(productId){
         })
     }
 }
+function chat(productId, otherUserId){
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "/chat";   // 对应你的 @PostMapping("/chat")
+
+    const p = document.createElement("input");
+    p.type = "hidden";
+    p.name = "productId";
+    p.value = productId;
+
+    const u = document.createElement("input");
+    u.type = "hidden";
+    u.name = "otherUserId";
+    u.value = otherUserId;
+
+    form.appendChild(p);
+    form.appendChild(u);
+
+    document.body.appendChild(form);
+    form.submit();
+
+}
